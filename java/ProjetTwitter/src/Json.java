@@ -20,18 +20,19 @@ public class Json {
 	        }
 	        result = sb.toString();
 	        
-
 			// parse JSON
 			JSONArray jsonArray = new JSONArray(result); 
 			 
 			// use
 			for (int i = 0; i < jsonArray.length(); i++) {
 				JSONObject jsonObject = jsonArray.getJSONObject(i);
-			 
+				
 				System.out.println(jsonObject.getString("created_at"));
-				System.out.println(jsonObject.getInt("id"));				
-				System.out.println(jsonObject.getString("text"));		
+				
+				JSONObject obj = jsonObject.getJSONObject("user");
+				System.out.println(obj);
 			}
+			
 	    } catch(Exception e) {
 	        e.printStackTrace();
 	    }
