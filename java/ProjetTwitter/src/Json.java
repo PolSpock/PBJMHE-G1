@@ -9,9 +9,9 @@ import org.json.JSONObject;
 
 public class Json {
 	
-	private static ArrayList<Tweet> tweets = new ArrayList<Tweet>();;
+	private static ArrayList<Tweet> tweets = new ArrayList<Tweet>();
 	
-	public static void Parse() {
+	public static ArrayList<Tweet> Parse() {
 
 	    String result = "";
 	    try {
@@ -50,8 +50,11 @@ public class Json {
 				//JSONObject obj = jsonObject.getJSONObject("user");
 			}
 			
+			
 	    } catch(Exception e) {
 	        e.printStackTrace();
 	    }
+	    
+	    return tweets;
 	}
 }
