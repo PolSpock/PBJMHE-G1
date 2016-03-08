@@ -2,11 +2,15 @@ import java.io.BufferedReader;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Iterator;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
 public class Json {
+	
+	private static ArrayList<Tweet> tweets = new ArrayList<Tweet>();;
+	
 	public static void Parse() {
 
 	    String result = "";
@@ -27,10 +31,23 @@ public class Json {
 			for (int i = 0; i < jsonArray.length(); i++) {
 				JSONObject jsonObject = jsonArray.getJSONObject(i);
 				
-				System.out.println(jsonObject.getString("created_at"));
-				
+				String tweetText = jsonObject.getString("text");
+				String tweetDate = jsonObject.getString("created_at");
+
 				JSONObject obj = jsonObject.getJSONObject("user");
-				System.out.println(obj);
+				
+				String tweetAuthor = obj.getString("name");
+				String tweetAlias = obj.getString("screen_name");
+				String tweetAvatar = obj.getString("profile_image_url");
+				
+				System.out.println(obj.getString("screen_name"));
+				System.out.println(obj.getString("name"));
+				System.out.println(obj.getString("profile_image_url"));
+
+				
+				tweets.add(new Tweet(tweetAuthor, tweetText, tweetDate, tweetAlias, tweetAvatar));
+				
+				//JSONObject obj = jsonObject.getJSONObject("user");
 			}
 			
 	    } catch(Exception e) {
