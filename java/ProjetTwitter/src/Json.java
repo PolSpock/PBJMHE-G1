@@ -1,7 +1,9 @@
 import java.io.BufferedReader;
+import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
+import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.Iterator;
 import org.json.JSONArray;
@@ -14,13 +16,14 @@ public class Json {
 	public static ArrayList<Tweet> Parse() {
 
 	    String result = "";
-	    try {
-	        BufferedReader br = new BufferedReader(new FileReader("C:/Users/Paul/home.json"));
-	        StringBuilder sb = new StringBuilder();
-	        String line = br.readLine();
+	    try {	        
+			BufferedReader jsonFile = new BufferedReader(new InputStreamReader(new FileInputStream("C:/Users/Paul/home.json"), "UTF8"));
+			StringBuilder sb = new StringBuilder();
+			
+	        String line = jsonFile.readLine();
 	        while (line != null) {
 	            sb.append(line);
-	            line = br.readLine();
+	            line = jsonFile.readLine();
 	        }
 	        result = sb.toString();
 	        
