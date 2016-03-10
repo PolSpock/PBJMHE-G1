@@ -1,6 +1,7 @@
 import java.io.IOException;
 
 import org.json.JSONException;
+import org.json.JSONObject;
 
 public class Main {
 
@@ -10,9 +11,6 @@ public class Main {
 	    Home fen = new Home();
 
 	    fen.setVisible(true);
-		
-		//new Json().Parse();
-		
 	
 	}
 

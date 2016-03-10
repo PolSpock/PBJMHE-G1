@@ -14,12 +14,13 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
+import javax.swing.JTextField;
 
 public class Home extends JFrame {
 
 	public Home() throws IOException{
-		new Json();
-		ArrayList<Tweet> tweetList = Json.Parse();
+		Json listOfTweet = new Json();
+		ArrayList<Tweet> tweetList = listOfTweet.Parse();
 		
 	    this.setLocationRelativeTo(null);
 	    this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -30,6 +31,8 @@ public class Home extends JFrame {
 		String urlReload = "http://iconizer.net/files/Wireframe_mono_icons/orig/playback_reload.png";
 		JLabel button = new JLabel("<html><img src=" + urlReload + ">");
 		this.add(button, BorderLayout.NORTH);
+		JTextField textField = new JTextField(3);
+		this.add(textField, BorderLayout.NORTH);
 		
 	    // A CREER METHODE TABLEAU
 	    createTab(this, tweetList);	
