@@ -3,6 +3,7 @@
 	<classpathentry kind="src" path="src"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/JavaSE-1.8"/>
 	<classpathentry kind="lib" path="C:/Users/Paul/Documents/Cours 2ème année/Cours/Projet/PBJMHE-G1/java/java-json.jar"/>
+<<<<<<< Updated upstream
 	<classpathentry kind="lib" path="C:/Users/Paul/Documents/Cours 2ème année/Cours/Projet/http-core-4.1.jar"/>
 	<classpathentry kind="lib" path="C:/Users/Paul/Documents/Cours 2ème année/Cours/Projet/httpmime-4.3.jar"/>
 	<classpathentry kind="lib" path="C:/Users/Paul/Documents/Cours 2ème année/Cours/Projet/commons-codec-1.10.jar"/>
@@ -10,5 +11,8 @@
 	<classpathentry kind="lib" path="C:/Users/Paul/Documents/Cours 2ème année/Cours/Projet/commons-codec-1.10-sources.jar"/>
 	<classpathentry kind="lib" path="C:/Users/Paul/Documents/Cours 2ème année/Cours/Projet/commons-codec-1.10-tests.jar"/>
 	<classpathentry kind="lib" path="C:/Users/Paul/Documents/Cours 2ème année/Cours/Projet/commons-codec-1.10-test-sources.jar"/>
+=======
+	<classpathentry kind="lib" path="/Users/daniel/PBJMHE-G1/java/java-json.jar"/>
+>>>>>>> Stashed changes
 	<classpathentry kind="output" path="bin"/>
 </classpath>
