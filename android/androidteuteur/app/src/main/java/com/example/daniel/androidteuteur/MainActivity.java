@@ -8,7 +8,6 @@ import android.view.Menu;
 import android.os.Handler;
 
 public class MainActivity extends AppCompatActivity {
-    public class SplashScreen extends Activity {
 
         // Splash screen timer
         private int SPLASH_TIME_OUT = 3000;
@@ -16,7 +15,7 @@ public class MainActivity extends AppCompatActivity {
         @Override
         protected void onCreate(Bundle savedInstanceState) {
             super.onCreate(savedInstanceState);
-            setContentView(R.layout.activity_main);
+            setContentView(R.layout.activity_launch);
 
             new Handler().postDelayed(new Runnable() {
 
@@ -37,4 +36,3 @@ public class MainActivity extends AppCompatActivity {
             }, SPLASH_TIME_OUT);
         }
     }
-}
