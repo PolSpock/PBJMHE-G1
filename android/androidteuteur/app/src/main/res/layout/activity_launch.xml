@@ -9,7 +9,7 @@
         android:layout_width="250dp"
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceLarge"
-        android:text="Androteuteur"
+        android:text="ANDROTEUTER"
         android:id="@+id/textView"
         android:layout_gravity="center_horizontal"
         android:layout_weight="0.30"

@@ -16,10 +16,7 @@
         android:id="@+id/editText"
         android:text="SearchField"
         android:layout_alignBottom="@+id/angry_btn"
-        android:layout_toRightOf="@+id/imageButton"
-        android:layout_alignParentTop="true"
-        android:layout_toLeftOf="@+id/angry_btn"
-        android:layout_toStartOf="@+id/angry_btn" />
+        android:layout_toLeftOf="@+id/angry_btn" />
 
     <Button
         android:id="@+id/angry_btn"

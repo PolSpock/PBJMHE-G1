@@ -8,32 +8,33 @@ import android.view.Menu;
 import android.os.Handler;
 
 public class MainActivity extends AppCompatActivity {
-    public class Splash extends Activity {
+    public class SplashScreen extends Activity {
 
-        /**
-         * Duration of wait
-         **/
-        private final int SPLASH_DISPLAY_LENGTH = 1000;
+        // Splash screen timer
+        private int SPLASH_TIME_OUT = 3000;
 
-        /**
-         * Called when the activity is first created.
-         */
         @Override
-        public void onCreate(Bundle icicle) {
-            super.onCreate(icicle);
-            setContentView(R.layout.activity_launch);
+        protected void onCreate(Bundle savedInstanceState) {
+            super.onCreate(savedInstanceState);
+            setContentView(R.layout.activity_main);
 
-        /* New Handler to start the Menu-Activity
-         * and close this Splash-Screen after some seconds.*/
-            new android.os.Handler().postDelayed(new Runnable() {
+            new Handler().postDelayed(new Runnable() {
+
+            /*
+             * Showing splash screen with a timer. This will be useful when you
+             * want to show case your app logo / company
+             */
+
                 @Override
                 public void run() {
-                /* Create an Intent that will start the Menu-Activity. */
-                    Intent mainIntent = new Intent(Splash.this, Menu.class);
-                    Splash.this.startActivity(mainIntent);
-                    Splash.this.finish();
+                    // This method will be executed once the timer is over
+                    // Start your app main activity
+                    Intent i = new Intent(MainActivity.this, TwittActivity.class);
+                    startActivity(i);
+                    // close this activity
+                    finish();
                 }
-            }, SPLASH_DISPLAY_LENGTH);
+            }, SPLASH_TIME_OUT);
         }
     }
 }
