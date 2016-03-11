@@ -18,9 +18,10 @@ import org.json.JSONObject;
 
 public class Json {
 	
-	private static ArrayList<Tweet> tweets = new ArrayList<Tweet>();
+	//private static ArrayList<Tweet> tweets = new ArrayList<Tweet>();
 	
 	public ArrayList<Tweet> Parse() {
+		ArrayList<Tweet> tweets = new ArrayList<Tweet>();
 
 	    String result = "";
 	    try {	        
@@ -32,6 +33,8 @@ public class Json {
 	    		result = parseJsonByFile();
 	    	}
 			
+	    	System.out.println(result);
+	    	
 			JSONArray jsonArray = new JSONArray(result); 
 			 
 			// use
@@ -72,7 +75,59 @@ public class Json {
     	TweeterAPI twitter = new TweeterAPI();
 		String access_token = "706818055054233600-axPLau20pgEjl752BmJRsVx0Fzaa6ON";
 		String access_token_secret = "TLQ5uK4KK2ZTWnpMA1I8lA6m5IyuoPdCiJWBiB16wNKpz";
-				
+		
 		return twitter.getTimeLine(access_token, access_token_secret);
+	}
+	
+	
+	public JSONObject getMyProfil() throws IOException, KeyManagementException, ParseException, NoSuchAlgorithmException, JSONException, HttpException {
+    	TweeterAPI twitter = new TweeterAPI();
+		String access_token = "706818055054233600-axPLau20pgEjl752BmJRsVx0Fzaa6ON";
+		String access_token_secret = "TLQ5uK4KK2ZTWnpMA1I8lA6m5IyuoPdCiJWBiB16wNKpz";
+		
+		String me = twitter.getMyProfil(access_token, access_token_secret);		
+		JSONObject jsonObject = new JSONObject(me); 
+		
+		return jsonObject;
+	}
+	
+	public ArrayList<Tweet> getTweetSearch(String text) throws IOException, KeyManagementException, ParseException, NoSuchAlgorithmException, JSONException, HttpException {
+		ArrayList<Tweet> tweetsSearch = new ArrayList<Tweet>();
+		
+		TweeterAPI twitter = new TweeterAPI();
+  		String access_token = "706818055054233600-axPLau20pgEjl752BmJRsVx0Fzaa6ON";
+   		String access_token_secret = "TLQ5uK4KK2ZTWnpMA1I8lA6m5IyuoPdCiJWBiB16wNKpz";
+        
+        System.out.println(text);
+
+  		JSONObject resultat = twitter.searchTweets(text, access_token, access_token_secret);
+        System.out.println(resultat);
+        		
+		JSONArray obj = resultat.getJSONArray("statuses");
+		System.out.println(obj);
+
+        
+		for (int i = 0; i < obj.length(); i++) {
+			JSONObject jsonObject = obj.getJSONObject(i);
+			
+			String tweetText = jsonObject.getString("text");
+			String tweetDate = jsonObject.getString("created_at");
+			
+			System.out.println(tweetText);
+			System.out.println(tweetDate);
+
+			JSONObject objDeux = jsonObject.getJSONObject("user");
+
+			String tweetAuthor = objDeux.getString("name");
+			String tweetAlias = objDeux.getString("screen_name");
+			String tweetAvatar = objDeux.getString("profile_image_url");
+			System.out.println(tweetAuthor);
+			System.out.println(tweetAlias);
+			System.out.println(tweetAvatar);
+
+			tweetsSearch.add(new Tweet(tweetAuthor, tweetText, tweetDate, tweetAlias, tweetAvatar));	
+		}	
+
+		return tweetsSearch;
 	}
 }
