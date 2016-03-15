@@ -20,6 +20,7 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.RelativeLayout;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import org.apache.http.HttpEntity;
@@ -32,6 +33,7 @@ import org.apache.http.impl.client.DefaultHttpClient;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
+import org.w3c.dom.Text;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -55,7 +57,8 @@ public class TwittActivity extends AppCompatActivity implements View.OnClickList
     private static Context context;
     private ListView mainListView ;
     RelativeLayout layout = null;
-    private ArrayAdapter<String> listAdapter ;
+    //private ArrayAdapter<String> listAdapter;
+    private TweetAdapter adapter;
 
     public static Context getAppContext() {
         return TwittActivity.context;
@@ -68,6 +71,47 @@ public class TwittActivity extends AppCompatActivity implements View.OnClickList
 
         layout = (RelativeLayout) RelativeLayout.inflate(this, R.layout.activity_main, null);
 
+        // PROFIL
+            TwitterProfil profil = new TwitterProfil();
+            Thread s = new Thread(profil);
+
+            s.start();
+
+            try {
+                s.join();
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+
+            String valueprofil = profil.getValue();
+            System.out.println("je suis de retour du profil");
+            System.out.println(valueprofil);
+
+        try {
+            JSONObject myProfil = new JSONObject(valueprofil);
+
+            TextView nom = (TextView) layout.findViewById(R.id.textView3);
+            nom.setText(myProfil.getString("screen_name"));
+
+            TextView alias = (TextView) layout.findViewById(R.id.textView);
+            alias.setText("@" +myProfil.getString("name"));
+
+            StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().
+                    permitAll().build();
+            StrictMode.setThreadPolicy(policy);
+
+            ImageView icon = (ImageView) layout.findViewById(R.id.imageView);
+            URL url = new URL(myProfil.getString("profile_image_url"));
+            Bitmap bmp = BitmapFactory.decodeStream(url.openConnection().getInputStream());
+            icon.setImageBitmap(bmp);
+
+        } catch (JSONException e) {
+            e.printStackTrace();
+        } catch (MalformedURLException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
 
         Button mButton = (Button) layout.findViewById(R.id.angry_btn);
         final EditText mEdit = (EditText) layout.findViewById(R.id.editText);
@@ -79,7 +123,7 @@ public class TwittActivity extends AppCompatActivity implements View.OnClickList
                     {
                         Toast.makeText(TwittActivity.this, mEdit.getText().toString(), Toast.LENGTH_SHORT).show();
 
-                        listAdapter.clear();
+                        adapter.clear();
 
                         TwitterSearch search = new TwitterSearch(mEdit.getText().toString());
                         Thread s = new Thread(search);
@@ -133,15 +177,20 @@ public class TwittActivity extends AppCompatActivity implements View.OnClickList
 
                         mainListView = (ListView) layout.findViewById(R.id.listView);
 
+                        adapter = new TweetAdapter(TwittActivity.this, tweetsSearch);
+
 
                         int listSize = tweetsSearch.size();
 
-                        for (int i = 0; i < listSize; i++) {
-                            listAdapter.add( tweetsSearch.get(i).getTweetAuthor() + tweetsSearch.get(i).getTweetAlias() + Html.fromHtml("<p style=\"color:red;\">" + tweetsSearch.get(i).getTweetText() + "</p>") + Html.fromHtml("<img src=" +tweetsSearch.get(i).getTweetAvatar() + ">"));
-                        }
+                        //for (int i = 0; i < listSize; i++) {
+                        //    listAdapter.add( tweetsSearch.get(i).getTweetAuthor() + tweetsSearch.get(i).getTweetAlias() + Html.fromHtml("<p style=\"color:red;\">" + tweetsSearch.get(i).getTweetText() + "</p>") + Html.fromHtml("<img src=" +tweetsSearch.get(i).getTweetAvatar() + ">"));
+                        //}
 
+                        adapter.notifyDataSetChanged();
 
-                        listAdapter.notifyDataSetChanged();
+                        mainListView.setAdapter(adapter);
+
+                        //listAdapter.notifyDataSetChanged();
 
                     }
                 });
@@ -202,31 +251,6 @@ public class TwittActivity extends AppCompatActivity implements View.OnClickList
                     e.printStackTrace();
                 }
 
-        LinearLayout layoutLi = (LinearLayout) LinearLayout.inflate(this, R.layout.activity_rowtextview, null);
-        ImageView imageView = (ImageView) layoutLi.findViewById(R.id.image);
-
-        System.out.println("je dois contenir des trucs");
-
-        System.out.println(imageView);
-
-        StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().
-                permitAll().build();
-        StrictMode.setThreadPolicy(policy);
-
-        URL url = null;
-        Bitmap image = null;
-        try {
-            url = new URL(tweets.get(0).getTweetAvatar());
-            image = BitmapFactory.decodeStream(url.openConnection().getInputStream());
-        } catch (MalformedURLException e) {
-            e.printStackTrace();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-
-        imageView.setImageBitmap(image);
-
-
         // Find the ListView resource.
         mainListView = (ListView) layout.findViewById(R.id.listView);
 
@@ -240,23 +264,19 @@ public class TwittActivity extends AppCompatActivity implements View.OnClickList
 
 
         // Create ArrayAdapter using the planet list.
-        listAdapter = new ArrayAdapter(getAppContext(), R.layout.activity_rowtextview, R.id.rowTextView);
+        //listAdapter = new ArrayAdapter(getAppContext(), R.layout.activity_rowtextview, R.id.rowTextView);
 
-        // Add more planets. If you passed a String[] instead of a List<String>
-        // into the ArrayAdapter constructor, you must not add more items.
-        // Otherwise an exception will occur.
+        adapter = new TweetAdapter(TwittActivity.this, tweets);
 
+        //int listSize = tweets.size();
 
-
-        int listSize = tweets.size();
-
-        for (int i = 0; i < listSize; i++) {
-            listAdapter.add( tweets.get(i).getTweetAuthor() + tweets.get(i).getTweetAlias() + Html.fromHtml("<p style=\"color:red;\">" + tweets.get(i).getTweetText() + "</p>") + Html.fromHtml("<img src=" +tweets.get(i).getTweetAvatar() + ">"));
-        }
+        //for (int i = 0; i < listSize; i++) {
+        //    listAdapter.add( tweets.get(i).getTweetAuthor() + tweets.get(i).getTweetAlias() + Html.fromHtml("<p style=\"color:red;\">" + tweets.get(i).getTweetText() + "</p>") + Html.fromHtml("<img src=" +tweets.get(i).getTweetAvatar() + ">"));
+        //}
 
 
         // Set the ArrayAdapter as the ListView's adapter.
-        mainListView.setAdapter(listAdapter);
+        mainListView.setAdapter(adapter);
 
         setContentView(layout);
 
@@ -266,7 +286,8 @@ public class TwittActivity extends AppCompatActivity implements View.OnClickList
     public void onClick(View v) {
         Toast.makeText(this, "clique", Toast.LENGTH_LONG).show();
 
-        listAdapter.clear();
+        //listAdapter.clear();
+        adapter.clear();
 
         TwitterTimeLine timeLine = new TwitterTimeLine();
         Thread t = new Thread(timeLine);
@@ -327,30 +348,18 @@ public class TwittActivity extends AppCompatActivity implements View.OnClickList
         // Find the ListView resource.
         mainListView = (ListView) layout.findViewById(R.id.listView);
 
-        // Create and populate a List of planet names.
-        String[] planets = new String[] { "Mercury", "Venus", "Earth", "Mars",
-                "Jupiter", "Saturn", "Uranus", "Neptune"};
-        ArrayList<String> planetList = new ArrayList<String>();
-        planetList.addAll(Arrays.asList(planets));
-
-
-
-
-        // Create ArrayAdapter using the planet list.
-
-        // Add more planets. If you passed a String[] instead of a List<String>
-        // into the ArrayAdapter constructor, you must not add more items.
-        // Otherwise an exception will occur.
-
-
 
         int listSize = tweets.size();
 
-        for (int i = 0; i < listSize; i++) {
-            listAdapter.add( tweets.get(i).getTweetAuthor() + tweets.get(i).getTweetAlias() + Html.fromHtml("<p style=\"color:red;\">" + tweets.get(i).getTweetText() + "</p>") + Html.fromHtml("<img src=" +tweets.get(i).getTweetAvatar() + ">"));
-        }
+        adapter = new TweetAdapter(TwittActivity.this, tweets);
+
+        //for (int i = 0; i < listSize; i++) {
+        //    listAdapter.add( tweets.get(i).getTweetAuthor() + tweets.get(i).getTweetAlias() + Html.fromHtml("<p style=\"color:red;\">" + tweets.get(i).getTweetText() + "</p>") + Html.fromHtml("<img src=" +tweets.get(i).getTweetAvatar() + ">"));
+        //}
 
 
-        listAdapter.notifyDataSetChanged();
+        adapter.notifyDataSetChanged();
+        mainListView.setAdapter(adapter);
+        //listAdapter.notifyDataSetChanged();
     }
 }
