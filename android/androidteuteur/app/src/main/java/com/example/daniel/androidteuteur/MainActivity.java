@@ -7,7 +7,7 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.os.Handler;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends Activity {
 
         // Splash screen timer
         private int SPLASH_TIME_OUT = 3000;
