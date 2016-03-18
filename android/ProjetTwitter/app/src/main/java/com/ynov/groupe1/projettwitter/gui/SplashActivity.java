@@ -2,8 +2,10 @@ package com.ynov.groupe1.projettwitter.gui;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.graphics.Typeface;
 import android.os.Bundle;
 import android.os.Handler;
+import android.widget.TextView;
 
 import com.ynov.groupe1.projettwitter.programm.MainActivity;
 import com.ynov.groupe1.projettwitter.R;
@@ -17,6 +19,11 @@ public class SplashActivity extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_launch);
+
+        TextView loading = (TextView) findViewById(R.id.textView2);
+        Typeface face = Typeface.createFromAsset(getAssets(), "fonts/AtlanticCruise.ttf");
+        loading.setTypeface(face);
+        loading.setTextSize(50);
 
         new Handler().postDelayed(new Runnable() {
 

@@ -1,5 +1,7 @@
 package com.ynov.groupe1.projettwitter.api;
 
+import com.ynov.groupe1.projettwitter.classes.ConfigInterface;
+
 import org.apache.http.HttpException;
 import org.apache.http.HttpHost;
 import org.apache.http.HttpRequestInterceptor;
@@ -40,11 +42,11 @@ import javax.net.ssl.SSLSocketFactory;
  */
 public class TwitterSearch implements Runnable {
 
-    private volatile String getTimeLine;
-    private String twitter_consumer_key = "DoZ2bSvA5pAniS8kDxJJ8KGsu";
-    private String twitter_consumer_secret = "fDQon1kUoffYBzls52iOGeeSUKY6USBcSN0CMbLjCk4CGc7djs";
-    private String oauth_token = "706818055054233600-axPLau20pgEjl752BmJRsVx0Fzaa6ON";
-    private String oauth_token_secret = "TLQ5uK4KK2ZTWnpMA1I8lA6m5IyuoPdCiJWBiB16wNKpz";
+    private volatile String getSearch;
+    private String twitter_consumer_key = ConfigInterface.twitter_consumer_key;
+    private String twitter_consumer_secret = ConfigInterface.twitter_consumer_secret;
+    private String oauth_token = ConfigInterface.oauth_token;
+    private String oauth_token_secret = ConfigInterface.oauth_token_secret;
     private String q;
 
     public TwitterSearch(String search){
@@ -149,7 +151,7 @@ public class TwitterSearch implements Runnable {
             httpexecutor.postProcess(response2, httpproc, context);
 
             // set response
-            this.getTimeLine = EntityUtils.toString(response2.getEntity());
+            this.getSearch = EntityUtils.toString(response2.getEntity());
 
         } catch (HttpException | IOException | KeyManagementException | NoSuchAlgorithmException e) {
             e.printStackTrace();
@@ -163,6 +165,6 @@ public class TwitterSearch implements Runnable {
     }
 
     public String getValue() {
-        return this.getTimeLine;
+        return this.getSearch;
     }
 }
