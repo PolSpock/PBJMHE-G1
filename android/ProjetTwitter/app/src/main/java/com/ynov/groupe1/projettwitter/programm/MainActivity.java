@@ -1,6 +1,7 @@
 package com.ynov.groupe1.projettwitter.programm;
 
 import android.app.Activity;
+import android.graphics.Typeface;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -33,6 +34,7 @@ public class MainActivity extends Activity implements View.OnClickListener{
         layout = (RelativeLayout) RelativeLayout.inflate(this, R.layout.activity_main, null);
         mainListView = (ListView) layout.findViewById(R.id.listView);
         adapter = new TweetAdapter(MainActivity.this, new ArrayList<Tweet>());
+        searchField = (EditText) layout.findViewById(R.id.editText);
         parse = new Parse(adapter, mainListView, MainActivity.this, searchField, layout);
 
         // TIMELINE
@@ -43,7 +45,10 @@ public class MainActivity extends Activity implements View.OnClickListener{
 
         // SEARCH
         Button buttonSearch = (Button) layout.findViewById(R.id.go_search);
+        // font
+        Typeface face = Typeface.createFromAsset(getAssets(), "fonts/Gotham-Narrow-Bold.otf");
         searchField = (EditText) layout.findViewById(R.id.editText);
+        searchField.setTypeface(face);
         buttonSearch.setOnClickListener(this);
 
         // REFRESH

@@ -1,4 +1,7 @@
 <resources>
     <string name="app_name">ProjetTwitter</string>
-    <string name="loading">Chargement...</string>
+    <string name="loading">chargement...</string>
+    <string name="Name">Name</string>
+    <string name="Alias">Alias</string>
+    <string name="search">search</string>
 </resources>

@@ -3,41 +3,58 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:paddingBottom="@dimen/activity_vertical_margin"
-    android:paddingLeft="@dimen/activity_horizontal_margin"
-    android:paddingRight="@dimen/activity_horizontal_margin"
-    android:paddingTop="@dimen/activity_vertical_margin"
-    tools:context="com.example.daniel.androidteuteur.MainActivity"
     android:focusable="true"
     android:focusableInTouchMode="true">
+
+
+    <View
+        android:id="@+id/stripe_one"
+        android:layout_width="wrap_content"
+        android:layout_height="70dp"
+        android:background="@color/colorPrimary"  />
+
+    <View
+        android:id="@+id/stripe_two"
+        android:layout_marginTop="-1dp"
+        android:layout_width="wrap_content"
+        android:layout_height="3dp"
+        android:layout_below="@+id/stripe_one"
+        android:background="@color/grey"  />
+
+    <ImageButton
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:id="@+id/imageButton"
+        android:src="@drawable/reload"
+        android:layout_alignTop="@+id/editText"
+        android:layout_alignParentLeft="true"
+        android:background="@null"
+        android:layout_alignParentStart="true"
+        android:layout_marginLeft="20dp"
+        android:layout_above="@+id/listView" />
 
     <EditText
         android:layout_width="200dp"
         android:layout_height="wrap_content"
         android:id="@+id/editText"
-        android:hint="search"
+        android:hint="@string/search"
+        android:textSize="20sp"
         android:layout_below="@+id/textView"
-        android:layout_toLeftOf="@+id/go_search"
-        android:layout_toStartOf="@+id/go_search"
-        android:layout_marginTop="17.5dp"
-        android:layout_marginBottom="10dp" />
+        android:layout_toRightOf="@+id/imageButton"
+        android:layout_marginTop="15dp"
+        android:layout_marginBottom="10dp"
+        android:layout_marginRight="10dp"
+        android:layout_marginLeft="18dp" />
 
     <Button
         android:id="@+id/go_search"
-        android:text="GO"
-        android:textColor="#08E6FF"
-        android:textSize="15sp"
-        android:layout_width="100dp"
-        android:layout_height="43dp"
-        android:background="@drawable/buttonshape"
-        android:shadowColor="#4337A8"
-        android:shadowDx="-13"
-        android:shadowDy="0"
-        android:shadowRadius="12"
-        android:layout_alignBottom="@+id/editText"
-        android:layout_alignTop="@+id/editText"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentEnd="true" />
+        android:layout_width="49dp"
+        android:layout_height="49dp"
+        android:background="@drawable/search"
+        android:layout_below="@+id/stripe_two"
+        android:layout_toRightOf="@+id/editText"
+        android:layout_toEndOf="@+id/editText"
+        android:layout_marginTop="12.5dp" />
 
     <ListView
         android:layout_width="wrap_content"
@@ -49,17 +66,8 @@
         android:choiceMode="singleChoice"
         android:layout_alignParentBottom="true"
         android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true" />
-
-    <ImageButton
-        android:layout_width="50dp"
-        android:layout_height="50dp"
-        android:id="@+id/imageButton"
-        android:src="@drawable/reload"
-        android:layout_alignBottom="@+id/editText"
-        android:layout_alignTop="@+id/editText"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true" />
+        android:layout_alignParentStart="true"
+        android:layout_marginTop="6dp" />
 
     <ImageView
         android:layout_width="50dp"
@@ -69,13 +77,17 @@
         android:maxHeight="20dp"
         android:layout_alignParentTop="true"
         android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true" />
+        android:layout_alignParentStart="true"
+        android:layout_marginLeft="22dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginBottom="0dp" />
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceLarge"
-        android:text="Name"
+        android:text="@string/Name"
+        android:textColor="@color/white"
         android:id="@+id/textView"
         android:layout_alignBottom="@+id/imageView"
         android:layout_marginBottom="10dp"
@@ -85,12 +97,15 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceLarge"
-        android:text="Alias"
+        android:text="@string/Alias"
         android:id="@+id/textView3"
+        android:textColor="@color/white"
         android:layout_alignBottom="@+id/imageView"
         android:layout_toRightOf="@+id/imageView"
         android:layout_toEndOf="@+id/imageView"
-        android:layout_marginLeft="30dp"
-        android:layout_marginBottom="10dp" />
+        android:layout_marginLeft="19dp"
+        android:layout_marginBottom="10dp"
+        android:layout_marginTop="10dp" />
+
 
 </RelativeLayout>

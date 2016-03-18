@@ -4,6 +4,7 @@ package com.ynov.groupe1.projettwitter.parse;
  * Created by Paul on 18/03/2016.
  */
 
+import android.graphics.Typeface;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.ListView;
@@ -155,6 +156,7 @@ public class Parse {
     public void displayProfil() {
         // Request API
         TwitterProfil profil = new TwitterProfil();
+        Typeface face = Typeface.createFromAsset(mainActivity.getAssets(), "fonts/Gotham-Narrow-Bold.otf");
 
         // Start request in new thread
         Thread s = new Thread(profil);
@@ -174,10 +176,12 @@ public class Parse {
             // profil name
             TextView name = (TextView) layout.findViewById(R.id.textView3);
             name.setText(myProfil.getString("screen_name"));
+            name.setTypeface(face);
 
             // profil alias
             TextView alias = (TextView) layout.findViewById(R.id.textView);
             alias.setText("@" + myProfil.getString("name"));
+            alias.setTypeface(face);
 
             // profil image
             ImageView icon = (ImageView) layout.findViewById(R.id.imageView);
